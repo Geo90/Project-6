@@ -41,7 +41,7 @@ public class Array7x7 {
 	}
 
 	/**
-	 * Overwrittens a row with a new one
+	 * Overwrites a row with a new one
 	 * @param row specifies which row needs to be overwritten with a new row
 	 * @param arr the new row we want to set 
 	 */
@@ -66,7 +66,7 @@ public class Array7x7 {
 	}
 
 	/**
-	 * Overwrittens a column with a new one
+	 * Overwrites a column with a new one
 	 * @param col specifies which column needs to be overwritten with a new column
 	 * @param arr the new column we want to set 
 	 */
@@ -89,26 +89,149 @@ public class Array7x7 {
 		return tempArr;
 	}
 	
-	// Testning av min kod 
-//	public static void main(String[] args) {
-//		Array7x7 arr7x7 = new Array7x7();
-//		Array7 arr7 = new Array7();
-//		arr7.setElement(0, 1);
-//		arr7.setElement(1, 2);
-//		arr7.setElement(2, 3);
-//		arr7.setElement(3, 4);
-//		arr7.setElement(4, 5);
-//		arr7.setElement(5, 6);
-//		arr7.setElement(6, 7);
-//		arr7x7.setRow(0, arr7.getArray() );
-//		arr7x7.setCol(2, arr7.getArray() );
-//		for(int i = 0; i < 7; i++){
-//			System.out.print(arr7x7.getRow(0)[i]);
-//		}
-//		System.out.println();
-//		for(int i = 0; i < 7; i++){
-//			System.out.print(arr7x7.getCol(2)[i]);
-//		}
-//	}
+	
+	/**
+	 * @author George, Nazdar
+	 * @version 1.0
+	 */
+	
+	/**
+	 * Returns an array after shifting columns to the left is finished
+	 * @param arr the new array that will be part of Array7x7
+	 * @return the array that falls over the edge in the end
+	 */
+	public int[] shiftLeft(int[] arr){
+		int[] temp = new int[arr.length];
+		for(int i=0; i<array7x7.length; i++){
+			temp = getCol(i);
+			setCol(i, arr);
+			arr = copyArray(temp);
+		}
+		return arr;
+		
+	}
+	
 
+	/**
+	 * Returns an array after shifting columns to the right is finished
+	 * @param arr the new array that will be part of Array7x7
+	 * @return the array that falls over the edge in the end
+	 */
+	public int[] shiftRight(int[] arr){
+		int[] temp = new int[arr.length];
+		for(int i=array7x7.length-1; i>=0; i--){
+			temp = getCol(i);
+			setCol(i, arr);
+			arr = copyArray(temp);
+		}
+		return arr;
+	}
+	
+	/**
+	 * Returns an array that is copied with no attachments to the original array
+	 * @param arr the array that will be copied
+	 * @return an new array with same elements as the original
+	 */
+	public int[] copyArray(int[] arr){
+		int[] temp = new int[arr.length];
+		for(int i=0; i<arr.length; i++){
+			temp[i] = arr[i];
+		}
+		return temp;
+	}
+
+	public int[][] zeroArray7x7(){
+		int[][] temp2D = new int[array7x7.length][array7x7[0].length];
+		for(int i=0; i<array7x7.length;i++){
+			for(int j=0; j<array7x7[i].length;j++){
+				array7x7[i][j] = 0;
+			}
+		}
+		return temp2D;
+	}
+
+
+	//Testning av min kod 
+	public static void main(String[] args) {
+		/**/
+		Array7x7 arr7x7 = new Array7x7();
+		Array7 arr7 = new Array7();
+		arr7.setElement(0, 1);
+		arr7.setElement(1, 2);
+		arr7.setElement(2, 3);
+		arr7.setElement(3, 4);
+		arr7.setElement(4, 5);
+		arr7.setElement(5, 6);
+		arr7.setElement(6, 7);
+		arr7x7.setRow(0, arr7.getArray() );
+		arr7x7.setCol(2, arr7.getArray() );
+		for(int i = 0; i < 7; i++){
+			System.out.print(arr7x7.getRow(0)[i]);
+		}
+		System.out.println();
+		for(int i = 0; i < 7; i++){
+			System.out.print(arr7x7.getCol(2)[i]);
+		}
+		/**/
+
+		System.out.println();
+		System.out.println();
+
+		//Dummy matrix initialized to zeroes
+		int[][] zeroes2D = new int[7][7]; 
+		System.out.println("Printing the 2D zeroes array:");
+		zeroes2D =	arr7x7.zeroArray7x7();
+		for(int col = 0; col < 7; col++){
+			for(int row = 0; row < 7; row++){
+				System.out.print(arr7x7.getCol(col)[row]);
+			}
+			System.out.println();
+		}
+		System.out.println();
+		System.out.println();
+
+		//Testing shifting methods, 2 to the left and 1 to the right using elements in arr7
+		System.out.println("Printing the same array after shifting 1 left:");
+		arr7x7.shiftLeft(arr7.getArray());
+		for(int col = 0; col < 7; col++){
+			for(int row = 0; row < 7; row++){
+				System.out.print(arr7x7.getCol(col)[row]);
+			}
+			System.out.println();	
+		}
+		
+		System.out.println("Printing the same array after shifting 1 more left:");
+		arr7x7.shiftLeft(arr7.getArray());
+		for(int col = 0; col < 7; col++){
+			for(int row = 0; row < 7; row++){
+				System.out.print(arr7x7.getCol(col)[row]);
+			}
+			System.out.println();	
+		}
+		
+		System.out.println();	
+		System.out.println();	
+		
+		System.out.println("Printing the same array after shifting 1 to the right:");
+		arr7x7.shiftRight(arr7.getArray());
+		for(int col = 0; col < 7; col++){
+			for(int row = 0; row < 7; row++){
+				System.out.print(arr7x7.getCol(col)[row]);
+			}
+			System.out.println();	
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
