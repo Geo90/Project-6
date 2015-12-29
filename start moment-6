@@ -1,0 +1,104 @@
+package p6;
+
+// detta är den första förslag som jag skrev
+	import java.awt.GridLayout;
+	import java.awt.event.ActionEvent;
+	import java.awt.event.ActionListener;
+
+	import javax.swing.JButton;
+	import javax.swing.JFrame;
+	import javax.swing.JLabel;
+	import javax.swing.JTextField;
+
+	public class Timer1 extends JFrame {
+		int count;
+		Timer timer;
+
+		
+		public Timer1(int delay , ActionListener listener) {
+			JFrame frame = new JFrame(" Inmatning fönster");
+			frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+			frame.setResizable( false );
+			
+			this.pack();
+			this.setVisible( true );
+			
+			setLayout(new GridLayout(6,3,5,5));
+			JLabel label1 = new JLabel (" Mata in en text " ); 
+			frame.add(label1);
+			
+			JTextField tf = new JTextField(5);
+			frame.add(tf);
+			
+			JButton btn1 = new JButton(" Start timing ");
+			frame.add(btn1);
+			
+			JLabel timerlabel = new JLabel (" Waiting......");
+			frame.add(timerlabel);
+			btn1.addActionListener(e);
+		
+		
+		public class event implements ActionListener{
+			public void actionPerformed(ActionEvent e) {
+				int count = (int)(Double.parseDouble(tf.getText()));
+				timelabel.setText("Time left: " + count);
+				TimeClass tc = new TimeClass(count);
+				timer = new Timer(1000, tf);
+				timer.start();
+				}
+			}
+			
+			// detta var det andra förslaget
+			
+			package p6;
+
+import java.awt.event.ActionListener;
+
+
+public class Timer {
+	
+	private long start;
+	private long stop;
+	private Timer timer;
+	private int delay = 1000; //en second
+	
+	public Timer(int delay , ActionListener listener) {
+		timer = new Timer(delay, listener);
+		timer.startTime();
+		
+	}
+	public void addActionListener (ActionListener listener) {
+		
+	}
+	
+	public boolean isRunning(){
+		if (timer is running){
+		return true;
+		}
+		
+	}
+	
+	public void setDelay(int delay) {
+		
+	}
+	
+	public void startTime() {
+		this.stop = System.currentTimeMillis();
+		this.stop = this.start;
+		start = true;
+		
+	}
+	
+	public void stopTime() {
+		this.stop = System.currentTimeMillis();
+		
+	}
+}
+
+			
+		}
+	}
+
+
+}
+
