@@ -8,7 +8,7 @@ package p6;
 	 * tecken så som +,-,etc.
 	 * Varje tecken deifinieras av en 7x7 array(49 element)
 	 * @author ansambassamabdulhamid
-	 *
+	 * @author NamraGill
 	 */
 	public class Character{
 		//deklaration och initiering av array med kapaciteten 128
@@ -473,7 +473,7 @@ package p6;
 		 * @param chr  tecken av typen char
 		 * @return     referens till rätt objekt
 		 */
-		public int getChar(char chr){
+		public Array7x7 getChar(char chr){
 			if(chr>=32 && chr <=122) { //alla ovanskrivna tecken inom detta intervall
 				return chars[chr]; 
 			}
@@ -482,16 +482,16 @@ package p6;
 			}
 			else if(chr >=33 && chr <=39) { //tecknen mellan position 33,och 39 
 											// i ascii tabellen används inte, har inte initierats
-					return chars[unknown];  // därför returneras "okänt tecken" när de väljs
+					return chars[63];  // därför returneras "okänt tecken" (unknown) när de väljs
 			}
 			else if( chr >=58 && chr<=64) {
-				return chars[unknown];
+				return chars[63];
 			}
 			else if( chr >=91 && chr<=96) {
-					return chars[unknown];
+					return chars[63];
 			}
 			else {
-				   return chars[unknown];
+				   return chars[63];
 		}
 			}
 	 }
