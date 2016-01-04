@@ -189,9 +189,9 @@ public class IntDisplay extends JComponent {
         }
     }
 
-    public static void pause(long ms) {
-        try {
-            Thread.sleep(ms);
-        }catch(InterruptedException e) {}
-    }
+    //public static void pause(long ms) {
+        //try {
+            //Thread.sleep(ms);
+        //}catch(InterruptedException e) {}
+    //}
 }

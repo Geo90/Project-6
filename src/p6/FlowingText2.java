@@ -16,6 +16,10 @@ public class FlowingText2{
 	char[] charArray;
 	String txt;
 	
+    public FlowingText2(){
+    	
+    }
+	
 	//Timer task will be executed when called by the Timer object
 	private TimerTask timerTask = new TimerTask(){
 		private int i = 0;
