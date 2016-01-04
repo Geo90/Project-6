@@ -28,9 +28,11 @@ public class TestArray7x7 extends JFrame {
 	private JButton btnLasKol = new JButton("Läs kol");
 	private JButton btnSkrivKol = new JButton("Skriv kol");
 	private JButton btnInputKolNr = new JButton("Input kol nr");
-	private TextField tfHorisont[] = new TextField[7]; // fördel med array är att samma referens kan användas
-	private TextField textfield [] = new TextField[7];
-	private  Array7x7 array7x7;
+	private JTextField tfHorisont[] = new JTextField[7]; // fördel med array är att samma referens kan användas
+	private JTextField tfVertikal [] = new JTextField[7];
+	private Array7x7 array7x7;
+	private JTextField tfInputRad = new JTextField();
+	private JTextField tfInputKol = new JTextField();
 	
 	
 	/**
@@ -45,10 +47,10 @@ public class TestArray7x7 extends JFrame {
 		AL listener = new AL();  // lyssnare - för man ska kunna lyssna (trycka) på knappar
 		btnLasRad.addActionListener(listener);
 		btnSkrivRad.addActionListener(listener);
-		btnInputRadNr.addActionListener(listener);
 		btnLasKol.addActionListener(listener);
 		btnSkrivKol.addActionListener(listener);
-		btnInputKolNr.addActionListener(listener);
+		btnInputRadNr.add(tfInputRad);  
+		btnInputKolNr.add(tfInputKol);
 	}
 	/**
 	 * Metoden består av fyra paneler som är alla 
@@ -89,21 +91,21 @@ public class TestArray7x7 extends JFrame {
 		for( int element = 0; element < 7; element++) {
 			JButton btnV = new JButton();  
 			btnV.setPreferredSize( new Dimension(55,55));
-			textfield[0] = new TextField();
-			textfield[1] = new TextField();
-			textfield[2] = new TextField(); 
-			textfield[3] = new TextField();
-			textfield[4] = new TextField();
-			textfield[5] = new TextField();
-			textfield[6] = new TextField();
+			tfVertikal[0] = new JTextField();
+			tfVertikal[1] = new JTextField();
+			tfVertikal[2] = new JTextField(); 
+			tfVertikal[3] = new JTextField();
+			tfVertikal[4] = new JTextField();
+			tfVertikal[5] = new JTextField();
+			tfVertikal[6] = new JTextField();
 			
-			btnV.add(textfield[0]);
-			btnV.add(textfield[1]);
-			btnV.add(textfield[2]);
-			btnV.add(textfield[3]);
-			btnV.add(textfield[4]);
-			btnV.add(textfield[5]);
-			btnV.add(textfield[6]);
+			btnV.add(tfVertikal[0]);
+			btnV.add(tfVertikal[1]);
+			btnV.add(tfVertikal[2]);
+			btnV.add(tfVertikal[3]);
+			btnV.add(tfVertikal[4]);
+			btnV.add(tfVertikal[5]);
+			btnV.add(tfVertikal[6]);
 			vertikalP.add(btnV);
 			vertikalP.setBorder(new EmptyBorder(0,0,20,20));
 			add(vertikalP, BorderLayout.WEST);
@@ -118,13 +120,13 @@ public class TestArray7x7 extends JFrame {
 		for( int element = 0; element < 7; element++) {
 			JButton btnH = new JButton();
 			btnH.setPreferredSize( new Dimension(10,40));
-			tfHorisont[0] = new TextField();
-			tfHorisont[1] = new TextField();
-			tfHorisont[2] = new TextField(); 
-			tfHorisont[3] = new TextField();
-			tfHorisont[4] = new TextField();
-			tfHorisont[5] = new TextField();
-			tfHorisont[6] = new TextField();
+			tfHorisont[0] = new JTextField();
+			tfHorisont[1] = new JTextField();
+			tfHorisont[2] = new JTextField(); 
+			tfHorisont[3] = new JTextField();
+			tfHorisont[4] = new JTextField();
+			tfHorisont[5] = new JTextField();
+			tfHorisont[6] = new JTextField();
 
 			btnH.add(tfHorisont[0]);
 			btnH.add(tfHorisont[1]);
@@ -171,7 +173,6 @@ public class TestArray7x7 extends JFrame {
 	 *
 	 */
 	private class AL implements ActionListener {  
-		
 		/**
 		 * Vi trycker på en knapp
 		 * För att det ska gå, skickar vi ett värde till
@@ -179,24 +180,46 @@ public class TestArray7x7 extends JFrame {
 		 * genom dess referens, och metodNamn
 		 */
 		public void actionPerformed(ActionEvent e)  {  
-//			if(e.getSource() == btnLasRad){
-//				array7x7.getRow(); 
-//		}
-//			else if(e.getSource() == btnSkrivRad){
-//					array7x7.setRow(); 
-//			}
-//			else if(e.getSource() == btnInputRadNr){ 
-//					array7x7.getVilkenMetod?();
-//			}
-//			else if(e.getSource() == btnLasKol){ 
-//					array7x7.getCol();
-//			}
-//			else if(e.getSource() == btnSkrivKol){
-//					array7x7.setCol(); 
-//			}
-//			else if(e.getSource() == btnInputKolNr){
-//					array7x7.getVilkenMetod?(); 
-//			}
+			if(e.getSource() == btnLasRad){
+				int Row = Integer.parseInt(tfInputRad.getText()); // gör om sträng till siffror
+				int[] temp = array7x7.getRow(Row); // lagrar det vi matar in i en int array temp
+				tfHorisont[0].setText(Integer.toString(temp[0])); 
+				tfHorisont[1].setText(Integer.toString(temp[1]));
+				tfHorisont[2].setText(Integer.toString(temp[2]));
+				tfHorisont[3].setText(Integer.toString(temp[3]));
+				tfHorisont[4].setText(Integer.toString(temp[4]));
+				tfHorisont[5].setText(Integer.toString(temp[5]));
+				tfHorisont[6].setText(Integer.toString(temp[6]));
+		    }
+			else if(e.getSource() == btnSkrivRad){  //setRow(var, vad)
+				int SkrivRad = Integer.parseInt(tfInputRad.getText());
+				int[]arr1 = new int[7];
+				int [] temp1 = array7x7.setRow( SkrivRad, arr1[7]); //vad ska skickas i parametern om inte detta?
+				tfVertikal[0].setText(Integer.toString(temp1[0]));
+				tfVertikal[1].setText(Integer.toString(temp1[1]));
+				tfVertikal[2].setText(Integer.toString(temp1[2]));
+				tfVertikal[3].setText(Integer.toString(temp1[3]));
+				tfVertikal[4].setText(Integer.toString(temp1[4]));
+				tfVertikal[5].setText(Integer.toString(temp1[5]));
+				tfVertikal[6].setText(Integer.toString(temp1[6]));
+			}
+			else if(e.getSource() == btnLasKol){ 
+				int Col = Integer.parseInt(tfInputKol.getText());
+				int [] temp2 = array7x7.getCol(Col);
+				tfVertikal[0].setText(Integer.toString(temp2[0]));
+			}
+			else if(e.getSource() == btnSkrivKol){
+				int SkrivKol = Integer.parseInt(tfInputKol.getText());
+				int [] arr2 = new int[] {0,1,2,3,4,5,6};
+				int [] temp3 = array7x7.setCol(SkrivKol, arr2[7]); // vad ska skickas i parameterna om inte detta?
+				tfHorisont[0].setText(Integer.toString(temp3[0]));
+				tfHorisont[1].setText(Integer.toString(temp3[1]));
+				tfHorisont[2].setText(Integer.toString(temp3[2]));
+				tfHorisont[3].setText(Integer.toString(temp3[3]));
+				tfHorisont[4].setText(Integer.toString(temp3[4]));
+				tfHorisont[5].setText(Integer.toString(temp3[5]));
+				tfHorisont[6].setText(Integer.toString(temp3[6]));		
+			}
 		}
 	}
 	
@@ -204,11 +227,11 @@ public class TestArray7x7 extends JFrame {
 	 * Körprogrammet
 	 * @param args
 	 */
-	public static void main( String [] args) { 
+	public static void main(String[] args) { 
 		Array7x7 array7x7 = new Array7x7();
 		TestArray7x7 t7x7 = new TestArray7x7(array7x7);
 		t7x7.TestArray7();
 	
-}
-	
+	} 
 	}
+  
