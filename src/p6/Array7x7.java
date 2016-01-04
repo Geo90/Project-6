@@ -19,6 +19,15 @@ public class Array7x7 {
 			}
 		}
 	}
+	
+	public Array7x7(int [][] array) {
+		array7x7 = new int [7][7];
+		for (int row = 0; row < array7x7.length; row++) {	// 		
+			for (int column = 0; column < array7x7[row].length; column++) {
+				array7x7[row][column] = 0;
+			}
+		}
+	}
 
 	/**
 	 * This method sets a element in the 2D arrray
