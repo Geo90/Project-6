@@ -18,20 +18,24 @@ public class FlowingText2{
 	
 	//Timer task will be executed when called by the Timer object
 	private TimerTask timerTask = new TimerTask(){
+		private int i = 0;
 		public void run(){
-			int i = 0;
-			while(i<txt.length()){
-				try {
-					Thread.sleep(delay);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//			int i = 0;
+			if(i<txt.length()) {
+//			while(i<txt.length()){
+//				try {
+//					Thread.sleep(delay);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				System.out.println("Value: " + " " + charArray[i]); 
 				i++;
+			} else {
+				timer.cancel();
 			}
-			stopTime();
-			System.out.println("Time in seconds: " + (stop-start)/1000);
+//			stopTime();
+//			System.out.println("Time in seconds: " + (stop-start)/1000);
 		}
 	};
 
@@ -122,7 +126,7 @@ public class FlowingText2{
 		System.out.println("System ready...");
 		startTime();
 		System.out.println("running...");
-		timer.schedule(timerTask, 2000);
+		timer.schedule(timerTask, 2000, 1000);
 	}
 	
 	//Main to test the code
