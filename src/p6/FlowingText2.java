@@ -16,8 +16,11 @@ public class FlowingText2{
 	char[] charArray;
 	String txt;
 	
-    public FlowingText2(){
-    	
+    public FlowingText2(String txt){
+    	timer = new Timer();
+		this.txt = txt;
+		charArray = new char[txt.length()];
+		charArray();
     }
 	
 	//Timer task will be executed when called by the Timer object
@@ -52,14 +55,16 @@ public class FlowingText2{
 		getUserInput();
 		charArray = new char[txt.length()];
 		charArray();
+		setDelay(delay);
 
 	}
+	
 	
 	/**
 	 * Asks the user to input a text that is stored in a String variable
 	 */
-	private void getUserInput(){
-		txt = JOptionPane.showInputDialog(null, "Input the text you want to show: ");
+	private String getUserInput(){
+		return this.txt;
 	}
 	
 	/**
@@ -120,6 +125,10 @@ public class FlowingText2{
 	public void stopTime() {
 		this.stop = System.currentTimeMillis();
 		isRunning = false;
+	}
+	
+	public void stopTimer(){
+		timer.cancel();
 	}
 	
 	/**
