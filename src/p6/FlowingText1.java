@@ -2,20 +2,19 @@ package p6;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-// detta är den första förslag som jag skrev
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.*;
 
 import javax.swing.*;
-
+ 
 public class FlowingText1 extends JFrame{
 	int count;
 	FlowingText2 timer;
 	private JTextField tf;
 	private JLabel timeLabel;
 	private JLabel label1;
-	private JButton ok, stop, cancel;
+	private JButton start, stop, cancel;
 	
 	public FlowingText1() {
 		
@@ -29,16 +28,16 @@ public class FlowingText1 extends JFrame{
 		panel.add(tf);
 		
 		//Buttons
-		ok = new JButton("OK");
+		start = new JButton("Start");
 		stop = new JButton("Stop");
 		cancel = new JButton("Cancel");
 	
 		
-		panel.add(ok);
+		panel.add(start);
 		panel.add(stop);
 		panel.add(cancel);
 		
-		ok.addActionListener(new ButtonListener());
+		start.addActionListener(new ButtonListener());
 		stop.addActionListener(new ButtonListener());
 		cancel.addActionListener(new ButtonListener());
 		
@@ -50,7 +49,7 @@ public class FlowingText1 extends JFrame{
 
 		public void actionPerformed(ActionEvent e) {
 			//Sends the input to the FlowingText2 class
-			if(e.getSource() == ok){
+			if(e.getSource() == start){
 				if(tf.getText().isEmpty())
 					JOptionPane.showMessageDialog(null, "The textfield is empty. Please try again.");
 				else{

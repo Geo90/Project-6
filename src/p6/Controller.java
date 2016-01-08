@@ -6,7 +6,6 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-
 public class Controller {
 	private Timer timer;
 	private Random random = new Random();
