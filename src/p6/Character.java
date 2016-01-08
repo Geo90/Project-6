@@ -474,11 +474,11 @@ package p6;
 		 * @return     referens till rätt objekt
 		 */
 		public Array7x7 getChar(char chr){
-			if(chr>=32 && chr <=122) { //alla ovanskrivna tecken inom detta intervall
+			if((chr>=40 && chr <=57) && (chr>=65 && chr<=90)) { //alla ovanskrivna tecken inom dessa intervall
 				return chars[chr]; 
 			}
 			else if( chr >=97 && chr <=122) {
-				return chars[chr-32];  //små bokstäver
+				return chars[chr-32];  //inmatning av småbokstäver ger samma bokstäver dock som storabokstäver
 			}
 			else if(chr >=33 && chr <=39) { //tecknen mellan position 33,och 39 
 											// i ascii tabellen används inte, har inte initierats
