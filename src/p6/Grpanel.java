@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import p6.Array7x7;
 import p6.TestArray7x7;
@@ -27,31 +29,38 @@ import p6.TestArray7x7;
  */
 
 public class Grpanel extends JFrame {
-	
+
 	private Array7x7 array7x7 = new Array7x7();
 	private JButton skRight = new JButton("Shift Right");
 	private JButton skLeft = new JButton("Shift Left");
-	private JLabel lblBoxes2D[][] = new JLabel[7][7]; // 2D array för lagring av knapparna
-	private JTextField tfVertikal[] = new JTextField[7];
+	private JLabel lblBoxes2D[][] = new JLabel[7][7]; // 2D array för lagring av
+														// knapparna
+	private JTextField tfVertikalh[] = new JTextField[7];
+	private JTextField tfVertikalv[] = new JTextField[7];
 	private JTextField tfCenter[][] = new JTextField[7][7];
+
+	private AL listener = new AL(); // lyssnare
 	
+	private JTextField tfTemp;
+	
+	
+	private JPanel vertikalv = new JPanel();
+	private JPanel vertikalh = new JPanel();
 	/**
 	 * Konstruktorn innehåller knappar med lyssnare Vi skickar klassen Array7x7
 	 * i parametern för att nå dess metoder, och för att sedan kunna lyssna på
 	 * knappar
 	 * 
 	 * @param array7x7
-	 *            
+	 * 
 	 */
 	public Grpanel(Array7x7 array7x7) {
-		this.array7x7  = array7x7;
-		
-		AL listener = new AL(); // lyssnare 
-								
+		this.array7x7 = array7x7;
+
 		skRight.addActionListener(listener);
 		skLeft.addActionListener(listener);
-	
 	}
+
 	/**
 	 * Metoden består av fyra paneler som är alla samlade på en BorderLayout I
 	 * 1:a panelen skapas de 49 elementen I 2:a skapas 7x1 (vertikalv) array med
@@ -66,91 +75,98 @@ public class Grpanel extends JFrame {
 		 */
 		JPanel panel7x7 = new JPanel();
 		panel7x7.setLayout(new GridLayout(7, 7, 10, 10));
-		for (int i = 0; i < 7; i++) { // för alla rader
-			for (int j = 0; j < 7; j++) { // för alla kolumner
+
+		for (int i = 0; i < tfCenter.length; i++) { // för alla rader
+			for (int j = 0; j < tfCenter[i].length; j++) { // för alla kolumner
 				lblBoxes2D[i][j] = new JLabel(""); // skapa en knapp
-				lblBoxes2D[i][j].setPreferredSize(new Dimension(50, 50)); // ge knapparna en storlek
+				lblBoxes2D[i][j].setPreferredSize(new Dimension(50, 50)); // ge
+																			// knapparna
+																			// en
+																			// storlek
 				lblBoxes2D[i][j].setBackground(Color.BLACK);
 				lblBoxes2D[i][j].setForeground(Color.WHITE);
 				lblBoxes2D[i][j].setOpaque(true);
-				panel7x7.add(lblBoxes2D[i][j]); // lägg knapparna på panelen
-				panel7x7.setBorder(new EmptyBorder(5, 15, 1, 30));// Skapar utrymme mellan fönstrets kanter och panelerna
-				add(panel7x7, BorderLayout.CENTER); // panelen placeras i center på fönstre
-			}
-				for (int x = 0; x < tfCenter.length; x++) {
-					for (int y = 0; y < tfCenter[x].length; y++) {
-					 JTextField[x][y] = new JTextField("");
-					 lblBoxes2D.add(tfCenter[x][y]);	
-					 }
 				
-				}
+				tfCenter[i][j] = new JTextField("");
+				lblBoxes2D[i][j].add(tfCenter[i][j]);
+				
+				panel7x7.add(lblBoxes2D[i][j]); // lägg knapparna på panelen
+				panel7x7.setBorder(new EmptyBorder(5, 15, 1, 30));// Skapar
+																	// utrymme
+																	// mellan
+																	// fönstrets
+																	// kanter
+																	// och
+																	// panelerna
+				add(panel7x7, BorderLayout.CENTER); // panelen placeras i center
+													// på fönstre
+			}
 		}
-		
+
 		/*
-		 * vertikalv representerar den venstra vertikala arrayen med de 7 elementen
-		 * Arrayen är editerbar består av 7 rader och 1 kolumn
+		 * vertikalv representerar den venstra vertikala arrayen med de 7
+		 * elementen Arrayen är editerbar består av 7 rader och 1 kolumn
 		 * 
 		 */
-		JPanel vertikalv = new JPanel();
+		
 		vertikalv.setLayout(new GridLayout(7, 1));
-		for (int element = 0; element < 7; element++) {
+		vertikalh.setLayout(new GridLayout(7, 1));
+		
+		for (int element = 0; element < tfCenter.length; element++) {
 			JButton btnV = new JButton();
 			btnV.setPreferredSize(new Dimension(55, 55));
-			
-			for (int i = 0; i < tfVertikal.length; i++) {
-			tfVertikal[i] = new JTextField("");
-			btnV.add(tfVertikal[i]);
+
+			JButton btnH = new JButton();
+			btnH.setPreferredSize(new Dimension(55, 55));
+
+			for (int i = 0; i < tfVertikalv.length; i++) {
+				tfVertikalv[i] = new JTextField("1");
+				tfVertikalv[i].addActionListener(listener);
+				tfVertikalv[i].setEnabled(true);
+				tfVertikalv[i].setEditable(true);
+				btnV.add(tfVertikalv[i]);
+				
+				tfVertikalh[i] = new JTextField("2");
+				tfVertikalh[i].setEnabled(true);
+				tfVertikalh[i].setEditable(true);
+				tfVertikalh[i].addActionListener(listener);
+				btnH.add(tfVertikalh[i]);
 			}
-			
+
 			vertikalv.add(btnV);
 			vertikalv.setBorder(new EmptyBorder(0, 0, 20, 20));
 			add(vertikalv, BorderLayout.WEST);
-			pack();
 			
-		}
-		/*
-		 * vertikalh representerar den högra vertikala arrayen med de 7 elementen
-		 * Arrayen är editerbar består av 7 rader och 1 kolumn
-		 * 
-		 */
-		
-		JPanel vertikalh = new JPanel();
-		vertikalh.setLayout(new GridLayout(7, 1));
-		for (int element = 0; element < 7; element++) {
-			JButton btnV = new JButton();
-			btnV.setPreferredSize(new Dimension(55, 55));
-			
-			for (int i = 0; i < tfVertikal.length; i++) {
-			tfVertikal[i] = new JTextField("");
-			btnV.add(tfVertikal[i]);
-			}
-			
-			vertikalh.add(btnV);
+			vertikalh.add(btnH);
 			vertikalh.setBorder(new EmptyBorder(0, 0, 20, 20));
 			add(vertikalh, BorderLayout.EAST);
 			pack();
-			
 		}
+		
 		/*
-		 * greenP representerar 2 knappar med varsin label,
-		 * Dessa knappar är "tryckbara" - har lyssnare
+		 * greenP representerar 2 knappar med varsin label, Dessa knappar är
+		 * "tryckbara" - har lyssnare
 		 */
 		JPanel greenP = new JPanel();
 		greenP.setLayout(new GridLayout(7, 1));
-			skRight.setForeground(new Color(0xFF00FF00)); // green color
-			greenP.add(skRight);
-			skLeft.setForeground(new Color(0xFF00FF00));
-			greenP.add(skLeft);
-			
-			greenP.setBorder(new EmptyBorder(0, 20, 20, 0));
-			add(greenP, BorderLayout.SOUTH);
-			pack();
-			setResizable(false); // gör att man ej kan ändra storlek på det skapade
-									// fönstret
-			setVisible(true); // gör fönstret synligt
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // gör fönstret stängbart
-															
+		skRight.setForeground(new Color(0xFF00FF00)); // green color
+		greenP.add(skRight);
+		skLeft.setForeground(new Color(0xFF00FF00));
+		greenP.add(skLeft);
+
+		tfTemp = new JTextField("temp");
+		greenP.add(tfTemp);
+		
+		greenP.setBorder(new EmptyBorder(0, 20, 20, 0));
+		add(greenP, BorderLayout.SOUTH);
+		pack();
+		setResizable(true); // gör att man ej kan ändra storlek på det skapade
+								// fönstret
+		setVisible(true); // gör fönstret synligt
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // gör fönstret
+														// stängbart
 	}
+
 	/**
 	 * Inre klass som implementerar ActionListener
 	 * 
@@ -158,17 +174,65 @@ public class Grpanel extends JFrame {
 	 * @author George
 	 *
 	 */
-	private class AL implements ActionListener {
+	
+	private class AL implements ActionListener, DocumentListener{
 		public void actionPerformed(ActionEvent e) {
+			for(int i=0;i<tfVertikalh.length;i++){
+				tfVertikalh[0].setText("X");
+				String s = tfVertikalh[i].getText();
+				tfVertikalh[i].setText(s);
+				System.out.println("Printing s: " + s);
+				System.out.println("Printing tfVertikalh["+i+"]: " + tfVertikalh[i].getText());
+				tfTemp.setText("YES!");
+				s = tfTemp.getText();
+				System.out.println(s);
+			}		
 			if (e.getSource() == skRight) {
-				array7x7.shiftRight(arr); //här anroppar vi shiftright metod
-				
+				int[] arr = new int[tfVertikalv.length];
+				for (int i = 0; i < arr.length; i++) {
+					//arr[i] = Integer.parseInt(tfVertikalv[i].getText());
+				}
+				array7x7.shiftRight(arr); // här anroppar vi shiftright metod
+				repaint();
 			} else if (e.getSource() == skLeft) {
-				array7x7.shiftLeft(arr); //här anroppar vi shiftleft metod
+				int[] arr = new int[tfVertikalh.length];
+				for (int i = 0; i < arr.length; i++) {
+					//arr[i] = Integer.parseInt(tfVertikalh[i].getText());
+				}
+				array7x7.shiftLeft(arr); // här anroppar vi shiftleft metod
+				repaint();
+			}
+		}
+//Funkar inte och behövs nog inte
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			for(int i=0; i<tfCenter.length;i++){
+				if(tfVertikalh[i] == null)
+					tfVertikalh[i].setText("0");
+				if(tfVertikalv[i] == null)
+					tfVertikalv[i].setText("0");
+				if(tfVertikalv[i] != null || tfVertikalh[i] != null){
+					tfVertikalv[i].setText("X");
+					tfVertikalv[i].setText("X");
+				}
 				
 			}
-	    } 
-     }
+			System.out.println("insertUpdate");
+		}
+
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			// TODO Auto-generated method stub
+			System.out.println("removeUpdate");
+		}
+
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			// TODO Auto-generated method stub
+			System.out.println("changedUpdate");
+			
+		}
+	}
 
 	/**
 	 * Körprogrammet
@@ -181,5 +245,5 @@ public class Grpanel extends JFrame {
 		gr.Grpanel();
 
 	}
-	 
+
 }
