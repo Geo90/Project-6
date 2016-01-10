@@ -109,6 +109,39 @@ public class Array7x7 {
 	 * @version 1.0
 	 */
 	
+	public void shiftRight() {
+		int[] temp1 = new int[array7x7.length];
+		int[] temp2 = new int[array7x7.length];
+		for (int i = 0; i < array7x7.length; i++) {
+			if (i == 0){
+				temp1 = getCol(i);
+				setCol(i, getCol(array7x7.length-1));
+			}
+			else{
+				temp2 = getCol(i);
+				setCol(i, temp1);
+				temp1 = copyArray(temp2);
+			}
+		}
+	}
+	
+
+	public void shiftLeft() {
+		int[] temp = new int[array7x7.length];
+		for (int i = 0; i < array7x7.length; i++) {
+			if (i == 0){
+				temp = getCol(0);
+				setCol(i, getCol(i+1));
+			}
+			else if(i==array7x7.length-1){
+				setCol(i, temp);
+			}
+			else{
+				setCol(i, getCol(i+1));
+			}
+		}
+	}
+	
 	/**
 	 * Returns an array after shifting columns to the left is finished
 	 * @param arr the new array that will be part of Array7x7
@@ -138,6 +171,25 @@ public class Array7x7 {
 		}
 		return arr;
 	}
+	
+	
+
+	public void setArray7x7(int[][] arr7x7) {
+		for (int i = 0; i < array7x7.length; i++) {
+			for (int j = 0; j < array7x7[i].length; j++) {
+				array7x7[i][j] = arr7x7[i][j];
+			}
+		}
+	}
+	
+	public void multiplyArray7x7(int num){
+		for (int i = 0; i < array7x7.length; i++) {
+			for (int j = 0; j < array7x7[i].length; j++) {
+				array7x7[i][j] *= num;
+			}
+		}
+	}
+	
 	
 	/**
 	 * Returns an array that is copied with no attachments to the original array

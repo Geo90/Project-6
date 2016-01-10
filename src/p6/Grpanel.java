@@ -1,4 +1,4 @@
-package  p6;
+package p6;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,7 +16,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-
 /**
  * Klassen representerar en grafisk miljö bestående av en 7x7 array, och två 7x1
  * vertikala array, två knappar med lyssnare
@@ -31,16 +30,16 @@ public class Grpanel extends JFrame {
 	private Array7x7 array7x7 = new Array7x7();
 	private JButton skRight = new JButton("Shift Right");
 	private JButton skLeft = new JButton("Shift Left");
-	
+
 	private JTextField tfVertikalh[] = new JTextField[7];
 	private JTextField tfVertikalv[] = new JTextField[7];
 	private JTextField tfCenter[][] = new JTextField[7][7];
 
+	private JButton[] btnArrayH = new JButton[7];
+	private JButton[] btnArrayV = new JButton[7];
+
 	private AL listener = new AL(); // lyssnare
-	
-	private JTextField tfTemp; 
-	
-	
+
 	/**
 	 * Konstruktorn innehåller knappar med lyssnare Vi skickar klassen Array7x7
 	 * i parametern för att nå dess metoder, och för att sedan kunna lyssna på
@@ -64,66 +63,69 @@ public class Grpanel extends JFrame {
 	 */
 	public void Grpanel() {
 		/*
-		 * panel7x7 representerar den stora arrayen
-		 * med de 49 textfield elementen 
+		 * panel7x7 representerar den stora arrayen med de 49 textfield
+		 * elementen
 		 * 
 		 */
 		JPanel panel7x7 = new JPanel();
 		panel7x7.setLayout(new GridLayout(7, 7, 10, 10));
 		for (int i = 0; i < 7; i++) { // för alla rader
 			for (int j = 0; j < 7; j++) { // för alla kolumner
-				tfCenter[i][j]= new JTextField("");
-				tfCenter[i][j].setPreferredSize(new Dimension(50,50));
+				tfCenter[i][j] = new JTextField("", JTextField.CENTER);
+				tfCenter[i][j].setPreferredSize(new Dimension(50, 50));
 				panel7x7.add(tfCenter[i][j]);
-			
-				panel7x7.setBorder(new EmptyBorder(5, 15, 1, 30));// Skapar utrymme mellan fönstrets kanter och panelerna
-				add(panel7x7, BorderLayout.CENTER); // panelen placeras i center på fönstret
-				
-				}
+
+				panel7x7.setBorder(new EmptyBorder(5, 15, 1, 30));// Skapar
+																	// utrymme
+																	// mellan
+																	// fönstrets
+																	// kanter
+																	// och
+																	// panelerna
+				add(panel7x7, BorderLayout.CENTER); // panelen placeras i center
+													// på fönstret
+
+			}
 		}
 		/*
 		 * vertikalv representerar den vänstra vertikala arrayen med de 7
-		 * elementen 
-		 * Arrayen är editerbar, består av 7 rader och 1 kolumn
+		 * elementen Arrayen är editerbar, består av 7 rader och 1 kolumn
 		 * 
 		 */
-		
+
 		JPanel vertikalv = new JPanel();
 		JPanel vertikalh = new JPanel();
-		
+
 		vertikalv.setLayout(new GridLayout(7, 1));
 		vertikalh.setLayout(new GridLayout(7, 1));
-		
+
 		for (int i = 0; i < tfCenter.length; i++) {
-			JButton btnV = new JButton();
-			btnV.setPreferredSize(new Dimension(55, 55));
-
-			JButton btnH = new JButton();
-			btnH.setPreferredSize(new Dimension(55, 55));
-
+			btnArrayV[i] = new JButton();
+			btnArrayV[i].setPreferredSize(new Dimension(55, 55));
 			
-				tfVertikalv[i] = new JTextField("1");
-				tfVertikalv[i].setEnabled(true); // komponenten är synlig 
-				tfVertikalv[i].setEditable(true); // editerbar 
-				tfVertikalv[i].addActionListener(listener); // tryckbar 
-				btnV.add(tfVertikalv[i]);
-				
-				tfVertikalh[i] = new JTextField("2");
-				tfVertikalh[i].setEnabled(true);
-				tfVertikalh[i].setEditable(true);  
-				tfVertikalh[i].addActionListener(listener);
-				btnH.add(tfVertikalh[i]); 
 
-			vertikalv.add(btnV);
-			vertikalv.setBorder(new EmptyBorder(0, 0, 20, 20)); 
+			btnArrayH[i] = new JButton();
+			btnArrayH[i].setPreferredSize(new Dimension(55, 55));
+			
+
+			tfVertikalv[i] = new JTextField("", JLabel.CENTER);
+			tfVertikalv[i].addActionListener(listener); // tryckbar
+			btnArrayV[i].add(tfVertikalv[i]);
+
+			tfVertikalh[i] = new JTextField("", JLabel.CENTER);
+			tfVertikalh[i].addActionListener(listener);
+			btnArrayH[i].add(tfVertikalh[i]);
+
+			vertikalv.add(btnArrayV[i]);
+			vertikalv.setBorder(new EmptyBorder(0, 0, 20, 20));
 			add(vertikalv, BorderLayout.WEST);
-			
-			vertikalh.add(btnH);
+
+			vertikalh.add(btnArrayH[i]);
 			vertikalh.setBorder(new EmptyBorder(0, 0, 20, 20));
 			add(vertikalh, BorderLayout.EAST);
 			pack();
 		}
-		
+
 		/*
 		 * greenP representerar 2 knappar med varsin label, Dessa knappar är
 		 * "tryckbara" - har lyssnare
@@ -135,19 +137,28 @@ public class Grpanel extends JFrame {
 		skLeft.setForeground(new Color(0xFF00FF00));
 		greenP.add(skLeft);
 
-		tfTemp = new JTextField("temp");
-		greenP.add(tfTemp);
-		
 		greenP.setBorder(new EmptyBorder(0, 20, 20, 0));
 		add(greenP, BorderLayout.SOUTH);
 		pack();
 		setResizable(true); // gör att man ej kan ändra storlek på det skapade
-								// fönstret
+							// fönstret
 		setVisible(true); // gör fönstret synligt
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // gör fönstret
 														// stängbart
 	}
 
+	
+	public int[][] getTfCenterArray(){
+		int[][] tempArr = new int[tfCenter.length][tfCenter.length];
+		for (int i = 0; i < tfCenter.length; i++) {
+			for (int j = 0; j < tfCenter.length; j++) {
+				tempArr[i][j] = Integer.parseInt(tfCenter[i][j].getText()); 
+			}
+	}
+		return tempArr;
+	}
+	
+	
 	/**
 	 * Inre klass som implementerar ActionListener
 	 * 
@@ -156,62 +167,64 @@ public class Grpanel extends JFrame {
 	 *
 	 */
 
-	private class AL implements ActionListener, DocumentListener{
+	private class AL implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			for(int i=0;i<tfVertikalh.length;i++){
-				tfVertikalh[0].setText("X");
-				String s = tfVertikalh[i].getText();
-				tfVertikalh[i].setText(s);
-				System.out.println("Printing s: " + s);
-				System.out.println("Printing tfVertikalh["+i+"]: " + tfVertikalh[i].getText());
-				tfTemp.setText("YES!");
-				s = tfTemp.getText();
-				System.out.println(s);
-			}		
+			JTextField tempTxtField;
+			int[] arr = new int[7];
+			int row = 0;
+			int col = 0;
+
+			// for(int i=0;i<tfVertikalh.length;i++){
+			/*
+			 * tfVertikalh[0].setText("X"); String s = tfVertikalh[i].getText();
+			 * tfVertikalh[i].setText(s); System.out.println("Printing s: " +
+			 * s); System.out.println("Printing tfVertikalh["+i+"]: " +
+			 * tfVertikalh[i].getText()); tfTemp.setText("YES!"); s =
+			 * tfTemp.getText(); System.out.println(s);
+			 */
+			// }
 			if (e.getSource() == skRight) {
-				int[] arr = new int[tfVertikalv.length];
 				for (int i = 0; i < arr.length; i++) {
-					//arr[i] = Integer.parseInt(tfVertikalv[i].getText());
-				}
-				array7x7.shiftRight(arr); // här anroppar vi shiftright metod
-				repaint();
-			} else if (e.getSource() == skLeft) {
-				int[] arr = new int[tfVertikalh.length];
-				for (int i = 0; i < arr.length; i++) {
-					//arr[i] = Integer.parseInt(tfVertikalh[i].getText());
-				}
-				array7x7.shiftLeft(arr); // här anroppar vi shiftleft metoden
-				repaint();
-			}
-		}
-//Funkar inte och behövs nog inte
-		@Override
-		public void insertUpdate(DocumentEvent e) {
-			for(int i=0; i<tfCenter.length;i++){
-				if(tfVertikalh[i] == null)
-					tfVertikalh[i].setText("0");
-				if(tfVertikalv[i] == null)
-					tfVertikalv[i].setText("0");
-				if(tfVertikalv[i] != null || tfVertikalh[i] != null){
-					tfVertikalv[i].setText("X");
-					tfVertikalv[i].setText("X");
+					tempTxtField = (JTextField) btnArrayV[i].getComponent(0);
+					arr[i] = Integer.parseInt(tempTxtField.getText());
+
+					tempTxtField.setText(Integer.toString(arr[i]));
 				}
 				
+				array7x7.setArray7x7(getTfCenterArray());
+				arr = array7x7.shiftRight(arr); // här anroppar vi shiftright
+												// metod
+
+				//Uppdaterar den symmetriska 7x7 arrayen
+				for (int i = 0; i < tfCenter.length; i++) {
+					for (int j = 0; j < tfCenter.length; j++) {
+						tfCenter[i][j].setText(Integer.toString(array7x7.getElement(i, j))); 
+					}
+					tempTxtField = (JTextField) btnArrayH[i].getComponent(0);
+					tempTxtField.setText(Integer.toString(arr[i]));
+				}
+			} else if (e.getSource() == skLeft) {
+
+				for (int i = 0; i < arr.length; i++) {
+					tempTxtField = (JTextField) btnArrayH[i].getComponent(0);
+					arr[i] = Integer.parseInt(tempTxtField.getText());
+
+					tempTxtField.setText(Integer.toString(arr[i]));
+				}
+
+				array7x7.setArray7x7(getTfCenterArray());
+				arr = array7x7.shiftLeft(arr); // här anroppar vi shiftright
+												// metod
+
+				//Uppdaterar den symmetriska 7x7 arrayen
+				for (int i = 0; i < tfCenter.length; i++) {
+					for (int j = 0; j < tfCenter.length; j++) {
+						tfCenter[i][j].setText(Integer.toString(array7x7.getElement(i, j))); 
+					}
+					tempTxtField = (JTextField) btnArrayV[i].getComponent(0);
+					tempTxtField.setText(Integer.toString(arr[i]));
+				}
 			}
-			System.out.println("insertUpdate");
-		}
-
-		@Override
-		public void removeUpdate(DocumentEvent e) {
-			// TODO Auto-generated method stub
-			System.out.println("removeUpdate");
-		}
-
-		@Override
-		public void changedUpdate(DocumentEvent e) {
-			// TODO Auto-generated method stub
-			System.out.println("changedUpdate");
-			
 		}
 	}
 
@@ -228,4 +241,3 @@ public class Grpanel extends JFrame {
 	}
 
 }
-
