@@ -1,4 +1,4 @@
-package p6;
+package  p6;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -38,11 +38,9 @@ public class Grpanel extends JFrame {
 
 	private AL listener = new AL(); // lyssnare
 	
-	private JTextField tfTemp;
+	private JTextField tfTemp; 
 	
 	
-	private JPanel vertikalv = new JPanel();
-	private JPanel vertikalh = new JPanel();
 	/**
 	 * Konstruktorn innehåller knappar med lyssnare Vi skickar klassen Array7x7
 	 * i parametern för att nå dess metoder, och för att sedan kunna lyssna på
@@ -66,11 +64,10 @@ public class Grpanel extends JFrame {
 	 */
 	public void Grpanel() {
 		/*
-		 * panel7x7 representerar den stora arrayen med de 49 elementen Till
-		 * detta ändamål användes en 2D- array för lagring av knapparna En
-		 * nestlad for loop användes för att gå igenom alla rader och kolumner
+		 * panel7x7 representerar den stora arrayen
+		 * med de 49 textfield elementen 
+		 * 
 		 */
-		
 		JPanel panel7x7 = new JPanel();
 		panel7x7.setLayout(new GridLayout(7, 7, 10, 10));
 		for (int i = 0; i < 7; i++) { // för alla rader
@@ -80,42 +77,45 @@ public class Grpanel extends JFrame {
 				panel7x7.add(tfCenter[i][j]);
 			
 				panel7x7.setBorder(new EmptyBorder(5, 15, 1, 30));// Skapar utrymme mellan fönstrets kanter och panelerna
-				add(panel7x7, BorderLayout.CENTER); // panelen placeras i center på fönstre
+				add(panel7x7, BorderLayout.CENTER); // panelen placeras i center på fönstret
 				
 				}
 		}
 		/*
-		 * vertikalv representerar den venstra vertikala arrayen med de 7
-		 * elementen Arrayen är editerbar består av 7 rader och 1 kolumn
+		 * vertikalv representerar den vänstra vertikala arrayen med de 7
+		 * elementen 
+		 * Arrayen är editerbar, består av 7 rader och 1 kolumn
 		 * 
 		 */
+		
+		JPanel vertikalv = new JPanel();
+		JPanel vertikalh = new JPanel();
 		
 		vertikalv.setLayout(new GridLayout(7, 1));
 		vertikalh.setLayout(new GridLayout(7, 1));
 		
-		for (int element = 0; element < tfCenter.length; element++) {
+		for (int i = 0; i < tfCenter.length; i++) {
 			JButton btnV = new JButton();
 			btnV.setPreferredSize(new Dimension(55, 55));
 
 			JButton btnH = new JButton();
 			btnH.setPreferredSize(new Dimension(55, 55));
 
-			for (int i = 0; i < tfVertikalv.length; i++) {
+			
 				tfVertikalv[i] = new JTextField("1");
-				tfVertikalv[i].addActionListener(listener);
-				tfVertikalv[i].setEnabled(true);
-				tfVertikalv[i].setEditable(true);
+				tfVertikalv[i].setEnabled(true); // komponenten är synlig 
+				tfVertikalv[i].setEditable(true); // editerbar 
+				tfVertikalv[i].addActionListener(listener); // tryckbar 
 				btnV.add(tfVertikalv[i]);
 				
 				tfVertikalh[i] = new JTextField("2");
 				tfVertikalh[i].setEnabled(true);
-				tfVertikalh[i].setEditable(true);
+				tfVertikalh[i].setEditable(true);  
 				tfVertikalh[i].addActionListener(listener);
-				btnH.add(tfVertikalh[i]);
-			}
+				btnH.add(tfVertikalh[i]); 
 
 			vertikalv.add(btnV);
-			vertikalv.setBorder(new EmptyBorder(0, 0, 20, 20));
+			vertikalv.setBorder(new EmptyBorder(0, 0, 20, 20)); 
 			add(vertikalv, BorderLayout.WEST);
 			
 			vertikalh.add(btnH);
@@ -155,7 +155,7 @@ public class Grpanel extends JFrame {
 	 * @author George
 	 *
 	 */
-	
+
 	private class AL implements ActionListener, DocumentListener{
 		public void actionPerformed(ActionEvent e) {
 			for(int i=0;i<tfVertikalh.length;i++){
@@ -180,7 +180,7 @@ public class Grpanel extends JFrame {
 				for (int i = 0; i < arr.length; i++) {
 					//arr[i] = Integer.parseInt(tfVertikalh[i].getText());
 				}
-				array7x7.shiftLeft(arr); // här anroppar vi shiftleft metod
+				array7x7.shiftLeft(arr); // här anroppar vi shiftleft metoden
 				repaint();
 			}
 		}
@@ -228,3 +228,4 @@ public class Grpanel extends JFrame {
 	}
 
 }
+
