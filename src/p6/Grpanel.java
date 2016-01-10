@@ -16,8 +16,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import p6.Array7x7;
-import p6.TestArray7x7;
 
 /**
  * Klassen representerar en grafisk miljö bestående av en 7x7 array, och två 7x1
@@ -33,8 +31,7 @@ public class Grpanel extends JFrame {
 	private Array7x7 array7x7 = new Array7x7();
 	private JButton skRight = new JButton("Shift Right");
 	private JButton skLeft = new JButton("Shift Left");
-	private JLabel lblBoxes2D[][] = new JLabel[7][7]; // 2D array för lagring av
-														// knapparna
+	
 	private JTextField tfVertikalh[] = new JTextField[7];
 	private JTextField tfVertikalv[] = new JTextField[7];
 	private JTextField tfCenter[][] = new JTextField[7][7];
@@ -73,36 +70,20 @@ public class Grpanel extends JFrame {
 		 * detta ändamål användes en 2D- array för lagring av knapparna En
 		 * nestlad for loop användes för att gå igenom alla rader och kolumner
 		 */
+		
 		JPanel panel7x7 = new JPanel();
 		panel7x7.setLayout(new GridLayout(7, 7, 10, 10));
-
-		for (int i = 0; i < tfCenter.length; i++) { // för alla rader
-			for (int j = 0; j < tfCenter[i].length; j++) { // för alla kolumner
-				lblBoxes2D[i][j] = new JLabel(""); // skapa en knapp
-				lblBoxes2D[i][j].setPreferredSize(new Dimension(50, 50)); // ge
-																			// knapparna
-																			// en
-																			// storlek
-				lblBoxes2D[i][j].setBackground(Color.BLACK);
-				lblBoxes2D[i][j].setForeground(Color.WHITE);
-				lblBoxes2D[i][j].setOpaque(true);
+		for (int i = 0; i < 7; i++) { // för alla rader
+			for (int j = 0; j < 7; j++) { // för alla kolumner
+				tfCenter[i][j]= new JTextField("");
+				tfCenter[i][j].setPreferredSize(new Dimension(50,50));
+				panel7x7.add(tfCenter[i][j]);
+			
+				panel7x7.setBorder(new EmptyBorder(5, 15, 1, 30));// Skapar utrymme mellan fönstrets kanter och panelerna
+				add(panel7x7, BorderLayout.CENTER); // panelen placeras i center på fönstre
 				
-				tfCenter[i][j] = new JTextField("");
-				lblBoxes2D[i][j].add(tfCenter[i][j]);
-				
-				panel7x7.add(lblBoxes2D[i][j]); // lägg knapparna på panelen
-				panel7x7.setBorder(new EmptyBorder(5, 15, 1, 30));// Skapar
-																	// utrymme
-																	// mellan
-																	// fönstrets
-																	// kanter
-																	// och
-																	// panelerna
-				add(panel7x7, BorderLayout.CENTER); // panelen placeras i center
-													// på fönstre
-			}
+				}
 		}
-
 		/*
 		 * vertikalv representerar den venstra vertikala arrayen med de 7
 		 * elementen Arrayen är editerbar består av 7 rader och 1 kolumn
