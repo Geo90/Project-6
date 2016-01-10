@@ -3,14 +3,20 @@ package p6;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.text.AbstractDocument.LeafElement;
 
 public class ColorElement {
 	private int r, g, b, color;
-	private Array7x7 arr7x7 = new Array7x7();
-	private ColorDisplay colorDisplaySmall = new ColorDisplay(Color.RED, Color.WHITE); // "new" måste finnas med för att kunna instansiera ColorDisplay
-	private	ColorDisplay colorDisplayBig = new ColorDisplay(1, 5, Color.BLACK, Color.WHITE);																				 																	
+	private Array7x7 arr7x7;
+	private ColorDisplay colorDisplaySmall = new ColorDisplay(1,3,Color.RED, Color.WHITE); // "new" måste finnas med för att kunna instansiera ColorDisplay
+	private	ColorDisplay colorDisplayBig = new ColorDisplay(1, 3, Color.BLACK, Color.WHITE);																				 																	
+	
+	public ColorElement(){
+		panelSmall();
+	}
 	
 	public void panelSmall() {
+		arr7x7 = new Array7x7(9);
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
 		panel.add(colorDisplaySmall);
@@ -21,6 +27,7 @@ public class ColorElement {
 	}
 	
 	public void panelBig() {
+		arr7x7 = new Array7x7();
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
 		panel.add(colorDisplayBig);
@@ -34,12 +41,14 @@ public class ColorElement {
 		int tempArray[][] = new int[7][7];
 		for (int row = 0; row < 7; row++) {
 			for (int col = 0; col < 7; col++) {
-				tempArray[row][col] = array7x7.array7x7[row][col];
+				arr7x7.setElement(row, col, array7x7.array7x7[row][col]);
 			}
 		}
-		updateSmallDisplay(tempArray);
+		arr7x7.multiplyArray7x7(0xFF00FF00);
+		tempArray = arr7x7.array7x7;
 		checkColor(tempArray);
-		arr7x7.multiplyArray7x7(5);
+		updateSmallDisplay(tempArray);
+		
 	}
 	
 	/**
@@ -67,12 +76,15 @@ public class ColorElement {
 	
 	public void updateBigDisplay(int[][] array) {
 		colorDisplayBig.setDisplay(array);
-		colorDisplayBig.updateDisplay();
+		colorDisplayBig.updateDisplay();;
 	}
 	
 	public void takeArray(int[] arr) {
+		arr = arr7x7.multiplyArray7(arr, 0xFF00FF00);
 		arr7x7.shiftLeft(arr);
-		updateBigDisplay(arr7x7.array7x7);
+		checkColor(arr7x7.array7x7);
+		updateSmallDisplay(arr7x7.array7x7);
+		
 	}
  
 	public static void main(String[] args) {
@@ -84,8 +96,8 @@ public class ColorElement {
 		ce.panelSmall();
 		ce.updateSmallDisplay(ce.arr7x7.array7x7);
 		JOptionPane.showMessageDialog(null, 0);
-		ce.arr7x7.shiftRight();
-		ce.updateBigDisplay(ce.arr7x7.array7x7);
+		ce.arr7x7.shiftLeft();
+		ce.updateSmallDisplay(ce.arr7x7.array7x7);
 	
 	}
 }

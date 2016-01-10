@@ -16,6 +16,11 @@ public class Array7x7 {
 		array7x7 = new int[7][7];
 	}
 
+	
+	public Array7x7(int size){
+		array7x7 = new int[7][size];
+	}
+	
 	/**
 	 * This method copies the values from array to array7x7
 	 * @param array the array we want to copy to array7x7
@@ -159,11 +164,22 @@ public class Array7x7 {
 	 */
 	public int[] shiftLeft(int[] arr){
 		int[] temp = new int[arr.length];
-		for(int i=array7x7.length-1; i>=0; i--){
+		System.out.print("arr values: ");
+		System.out.println();
+		for(int i=array7x7[0].length-1; i>=0; i--){
+			
 			temp = getCol(i);
 			setCol(i, arr);
 			arr = copyArray(temp);
+			
+			for(int j = 0; j<arr.length; j++)
+				System.out.print(getElement(j, i) + " ");
+			System.out.println();
 		}
+		System.out.println();
+		System.out.println();
+		
+		
 		return arr;
 	}
 	
@@ -183,6 +199,14 @@ public class Array7x7 {
 				array7x7[i][j] *= num;
 			}
 		}
+	}
+	
+	
+	public int[] multiplyArray7(int[] arr, int num){
+		for (int i = 0; i < arr.length; i++) {
+				arr[i] *= num;
+		}
+		return arr;
 	}
 	
 	

@@ -16,12 +16,12 @@ import javax.swing.*;
  */
 public class FlowingText1 extends JFrame{
 	int count;
-	FlowingText2 timer;
+	FlowingText2 fl2;
 	private JTextField tf;
 	private JLabel timeLabel;
 	private JLabel label1;
 	private JButton start, stop, cancel;
-	
+	private String textFieldText;
 	/**
 	 * Konstruktorn innehåller knappar med lyssnare
 	 */
@@ -53,6 +53,10 @@ public class FlowingText1 extends JFrame{
 		add(panel);
 		this.pack();	
 	}
+	
+	public String getText(){
+		return textFieldText;
+	}
 
 	/**
 	 * Inre klass som implementerar ActionListener
@@ -62,7 +66,7 @@ public class FlowingText1 extends JFrame{
 	 */
 	private class ButtonListener implements ActionListener {
 		
-		/**
+		/**rsxcv
 		 * Vi trycker på en knapp För att det ska gå, skickar vi ett värde till
 		 * klassen som innehåller alla metoder som ska anropas, genom dess
 		 * referens, och metodNamn
@@ -73,14 +77,15 @@ public class FlowingText1 extends JFrame{
 				if(tf.getText().isEmpty())
 					JOptionPane.showMessageDialog(null, "The textfield is empty. Please try again.");
 				else{
-					timer = new FlowingText2(tf.getText());
+					textFieldText = tf.getText();
+					fl2 = new FlowingText2(textFieldText);
 					tf.setText(null);
-					timer.run();
+					fl2.run();
 				}
 			}
 			//Stops the timer
 			else if(e.getSource() == stop){
-				timer.stopTimer();
+				fl2.stopTimer();
 			}
 			//Closes the JFrame window
 			else{
