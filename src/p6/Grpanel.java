@@ -71,7 +71,7 @@ public class Grpanel extends JFrame {
 		panel7x7.setLayout(new GridLayout(7, 7, 10, 10));
 		for (int i = 0; i < 7; i++) { // för alla rader
 			for (int j = 0; j < 7; j++) { // för alla kolumner
-				tfCenter[i][j] = new JTextField("", JTextField.CENTER);
+				tfCenter[i][j] = new JTextField(null, JTextField.CENTER);
 				tfCenter[i][j].setPreferredSize(new Dimension(50, 50));
 				panel7x7.add(tfCenter[i][j]);
 
@@ -152,9 +152,13 @@ public class Grpanel extends JFrame {
 		int[][] tempArr = new int[tfCenter.length][tfCenter.length];
 		for (int i = 0; i < tfCenter.length; i++) {
 			for (int j = 0; j < tfCenter.length; j++) {
-				tempArr[i][j] = Integer.parseInt(tfCenter[i][j].getText()); 
+				try{
+				tempArr[i][j] = Integer.parseInt(tfCenter[i][j].getText());
+				}catch(NumberFormatException e){
+					//Do nothing
+					}
+				}
 			}
-	}
 		return tempArr;
 	}
 	
@@ -171,9 +175,6 @@ public class Grpanel extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			JTextField tempTxtField;
 			int[] arr = new int[7];
-			int row = 0;
-			int col = 0;
-
 			// for(int i=0;i<tfVertikalh.length;i++){
 			/*
 			 * tfVertikalh[0].setText("X"); String s = tfVertikalh[i].getText();

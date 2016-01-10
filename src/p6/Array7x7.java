@@ -13,12 +13,7 @@ public class Array7x7 {
 	 * This constructor initializes the 2D array with 0
 	 */
 	public Array7x7() {
-		array7x7 = new int [7][7];
-		for (int row = 0; row < array7x7.length; row++) {	// 		
-			for (int column = 0; column < array7x7[row].length; column++) {
-				array7x7[row][column] = 0;
-			}
-		}
+		array7x7 = new int[7][7];
 	}
 
 	/**
