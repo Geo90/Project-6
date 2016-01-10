@@ -181,7 +181,7 @@ public class ColorDisplay extends JComponent {
 	}
 	
 	public static void main(String[] args) {
-<<<<<<< Updated upstream
+
 	int[][] arr = {{Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED},
 			{Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED},
 			{Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED},
@@ -194,8 +194,8 @@ public class ColorDisplay extends JComponent {
 	d.updateDisplay();
 
 		JOptionPane.showMessageDialog(null,d);
-=======
-//		int[][] arr = {{Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED},
+
+//	int[][] arr = {{Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED},
 //				{Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED},
 //				{Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED},
 //				{Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED,Color.RED},
@@ -207,7 +207,7 @@ public class ColorDisplay extends JComponent {
 //		d.updateDisplay();
 //
 //		JOptionPane.showMessageDialog(null,d);
->>>>>>> Stashed changes
+
 		JOptionPane.showMessageDialog(null, new ColorDisplay(Color.RED,Color.WHITE));
 	}
 }

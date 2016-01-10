@@ -7,7 +7,13 @@ import java.awt.Toolkit;
 import java.awt.event.*;
 
 import javax.swing.*;
- 
+
+/**
+ * Klassen innehåller metoder föratt visa inmatnings dialog som innehåller 3 knappar då man trycker på en av dem
+ * kommer timer att fungerar
+ * @author NAZDAR & George
+ * 
+ */
 public class FlowingText1 extends JFrame{
 	int count;
 	FlowingText2 timer;
@@ -16,6 +22,9 @@ public class FlowingText1 extends JFrame{
 	private JLabel label1;
 	private JButton start, stop, cancel;
 	
+	/**
+	 * Konstruktorn innehåller knappar med lyssnare
+	 */
 	public FlowingText1() {
 		
 		JPanel panel = new JPanel();
@@ -45,8 +54,19 @@ public class FlowingText1 extends JFrame{
 		this.pack();	
 	}
 
+	/**
+	 * Inre klass som implementerar ActionListener
+	 * 
+	 * @author George & Nazdar
+	 *
+	 */
 	private class ButtonListener implements ActionListener {
-
+		
+		/**
+		 * Vi trycker på en knapp För att det ska gå, skickar vi ett värde till
+		 * klassen som innehåller alla metoder som ska anropas, genom dess
+		 * referens, och metodNamn
+		 */
 		public void actionPerformed(ActionEvent e) {
 			//Sends the input to the FlowingText2 class
 			if(e.getSource() == start){
@@ -70,15 +90,18 @@ public class FlowingText1 extends JFrame{
 		}
 
 	}
+	
+	/**
+	 * Körprogrammet
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		FlowingText1 ft1 = new FlowingText1();
 
 		ft1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		
-		//ft1.setLocation(dim.width/2-ft1.getSize().width/2, dim.height/2-ft1.getSize().height/2);
-		ft1.setLocationRelativeTo(null); //Same as the row of code that is commented above
-		
+		ft1.setLocationRelativeTo(null); 
 		ft1.setVisible(true);
 		ft1.setSize(new Dimension(300,200) );
 		

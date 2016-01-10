@@ -1,5 +1,5 @@
 
-// detta var det andra förslaget
+
 
 package p6;
 
