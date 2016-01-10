@@ -7,7 +7,7 @@ package p6;
  */
 public class Array7x7 {
 
-	int[][] array7x7;
+	private int[][] array7x7;
 
 	/**
 	 * This constructor initializes the 2D array with 0
@@ -16,11 +16,21 @@ public class Array7x7 {
 		array7x7 = new int[7][7];
 	}
 
-	
-	public Array7x7(int size){
-		array7x7 = new int[7][size];
+	/**
+	 *  This method returns a clone of the 2D int array
+	 * @return a clone of the int[][] array7x7
+	 */
+	public int[][] cloneArray() {
+		int[][] tempArr = new int[array7x7.length][array7x7[0].length];
+		for (int i = 0; i < array7x7.length; i++) {
+			for (int j = 0; j < array7x7[i].length; j++) {
+				int temp = array7x7[i][j];
+				tempArr[i][j] = temp;
+			}
+		}
+		return tempArr;
 	}
-	
+
 	/**
 	 * This method copies the values from array to array7x7
 	 * @param array the array we want to copy to array7x7
@@ -164,22 +174,11 @@ public class Array7x7 {
 	 */
 	public int[] shiftLeft(int[] arr){
 		int[] temp = new int[arr.length];
-		System.out.print("arr values: ");
-		System.out.println();
 		for(int i=array7x7[0].length-1; i>=0; i--){
-			
 			temp = getCol(i);
 			setCol(i, arr);
 			arr = copyArray(temp);
-			
-			for(int j = 0; j<arr.length; j++)
-				System.out.print(getElement(j, i) + " ");
-			System.out.println();
 		}
-		System.out.println();
-		System.out.println();
-		
-		
 		return arr;
 	}
 	
