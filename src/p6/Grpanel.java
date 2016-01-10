@@ -71,7 +71,7 @@ public class Grpanel extends JFrame {
 		panel7x7.setLayout(new GridLayout(7, 7, 10, 10));
 		for (int i = 0; i < 7; i++) { // för alla rader
 			for (int j = 0; j < 7; j++) { // för alla kolumner
-				tfCenter[i][j] = new JTextField(null, JTextField.CENTER);
+				tfCenter[i][j] = new JTextField("0", JTextField.CENTER);
 				tfCenter[i][j].setPreferredSize(new Dimension(50, 50));
 				panel7x7.add(tfCenter[i][j]);
 
@@ -108,11 +108,11 @@ public class Grpanel extends JFrame {
 			btnArrayH[i].setPreferredSize(new Dimension(55, 55));
 			
 
-			tfVertikalv[i] = new JTextField("", JLabel.CENTER);
+			tfVertikalv[i] = new JTextField("0", JTextField.CENTER);
 			tfVertikalv[i].addActionListener(listener); // tryckbar
 			btnArrayV[i].add(tfVertikalv[i]);
 
-			tfVertikalh[i] = new JTextField("", JLabel.CENTER);
+			tfVertikalh[i] = new JTextField("0", JTextField.CENTER);
 			tfVertikalh[i].addActionListener(listener);
 			btnArrayH[i].add(tfVertikalh[i]);
 
@@ -152,11 +152,7 @@ public class Grpanel extends JFrame {
 		int[][] tempArr = new int[tfCenter.length][tfCenter.length];
 		for (int i = 0; i < tfCenter.length; i++) {
 			for (int j = 0; j < tfCenter.length; j++) {
-				try{
 				tempArr[i][j] = Integer.parseInt(tfCenter[i][j].getText());
-				}catch(NumberFormatException e){
-					//Do nothing
-					}
 				}
 			}
 		return tempArr;
@@ -175,15 +171,7 @@ public class Grpanel extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			JTextField tempTxtField;
 			int[] arr = new int[7];
-			// for(int i=0;i<tfVertikalh.length;i++){
-			/*
-			 * tfVertikalh[0].setText("X"); String s = tfVertikalh[i].getText();
-			 * tfVertikalh[i].setText(s); System.out.println("Printing s: " +
-			 * s); System.out.println("Printing tfVertikalh["+i+"]: " +
-			 * tfVertikalh[i].getText()); tfTemp.setText("YES!"); s =
-			 * tfTemp.getText(); System.out.println(s);
-			 */
-			// }
+			
 			if (e.getSource() == skRight) {
 				for (int i = 0; i < arr.length; i++) {
 					tempTxtField = (JTextField) btnArrayV[i].getComponent(0);
